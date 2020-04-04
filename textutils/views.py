@@ -1,10 +1,10 @@
-# This file was created by me - Slim Shady
+# I have created this file - Harry
 from django.http import HttpResponse
-from django.shortcuts import  render
+from django.shortcuts import render
 
 # HomePage
 def index(request):
-   return render(request, 'index.html')
+    return render(request, 'index.html')
 
 # About Us
 def aboutus(request):
@@ -14,64 +14,73 @@ def aboutus(request):
 def features(request):
     return render(request, 'features.html')
 
-#AnNALyse Button Processes!!
 def analyse(request):
-    djtext= request.POST.get('text', 'default')
+    # Get the text
+    djtext = request.POST.get('text', 'default')
+
+    # Check checkbox values
     removepunc = request.POST.get('removepunc', 'off')
     fullcaps = request.POST.get('fullcaps', 'off')
-    remlwn = request.POST.get('newlineremover', 'off')
-    spaceremover = request.POST.get('spaceremover', 'off')
-    countchar = request.POST.get('countchar', 'off')
+    newlineremover = request.POST.get('newlineremover', 'off')
+    extraspaceremover = request.POST.get('extraspaceremover', 'off')
+    numberremover = request.POST.get('numberremover', 'off')
 
-    # Removing Punctuations
+    # Check which checkbox is on
     if removepunc == "on":
-        punctuations ='''!(){}[];:'"/\,<>.?@#$%^&*_~'''
+        punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
         analysed = ""
         for char in djtext:
             if char not in punctuations:
-                analysed += char
-        params = {'purpose':'Removing Punctuations','analysed_text':analysed}
+                analysed = analysed + char
+
+        params = {'purpose': 'Removed Punctuations', 'analysed_text': analysed}
         djtext = analysed
 
-    # Converting to Uppercase
-    if fullcaps == "on":
-        analysed = " "
-        for char in djtext :
-            analysed += char.upper()
-        params = {'purpose': 'Changing to Uppercase', 'analysed_text': analysed}
-        djtext = analysed
-        #return render
-
-    # Removing NewLine
-    if remlwn == "on":
-        analysed = " "
+    if (fullcaps == "on"):
+        analysed = ""
         for char in djtext:
-            if char is not "\n" and char is not "\r":
-                analysed += char
-        params = {'purpose': 'Removing Newline', 'analysed_text': analysed}
+            analysed = analysed + char.upper()
+
+        params = {'purpose': 'Changed to Uppercase', 'analysed_text': analysed}
         djtext = analysed
 
-    # Removing Extra Spaces
-    if spaceremover == "on":
-        analysed = " "
+    if (extraspaceremover == "on"):
+        analysed = ""
         for index, char in enumerate(djtext):
-            if not(djtext[index] == " " and djtext[index+1] == " "):
-                analysed += char
-        params = {'purpose': 'Removing spaces', 'analysed_text': analysed}
+            # It is for if a extraspace is in the last of the string
+            if char == djtext[-1]:
+                if not (djtext[index] == " "):
+                    analysed = analysed + char
+
+            elif not (djtext[index] == " " and djtext[index + 1] == " "):
+                analysed = analysed + char
+
+        params = {'purpose': 'Removed NewLines', 'analysed_text': analysed}
         djtext = analysed
-        #return render(request, 'analyse.html', params)
 
-    # counting characters
-    if countchar  == "on":
-        analysed = " "
-        count = 0
-        for index, char in enumerate(djtext):
-            count += 1
-            analysed = count
-        params = {'purpose': 'Counting characters', 'analysed_text': analysed}
+    if (newlineremover == "on"):
+        analysed = ""
+        for char in djtext:
+            if char != "\n" and char != "\r":
+                analysed = analysed + char
 
-    if removepunc != "on" and fullcaps != "on" and remlwn != "on" and spaceremover != "on" and countchar != "on":
+        params = {'purpose': 'Removed NewLines', 'analysed_text': analysed}
+
+    if (numberremover == "on"):
+        analysed = ""
+        numbers = '0123456789'
+
+        for char in djtext:
+            if char not in numbers:
+                analysed = analysed + char
+
+        params = {'purpose': 'Removed NewLines', 'analysed_text': analysed}
+        djtext = analysed
+
+    if (
+            removepunc != "on" and newlineremover != "on" and extraspaceremover != "on" and fullcaps != "on" and numberremover != "on"):
         return HttpResponse("please select any operation and try again")
 
     return render(request, 'analyse.html', params)
+
 

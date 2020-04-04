@@ -9,6 +9,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>TextUtils</title>
+  <style>
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: black;
+   color: white;
+   text-align: center;
+   display: block;
+}
+#corner-btn{
+  position: absolute;
+  right: 0;
+  top: 15px;
+  padding: 4px;
+}
+</style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -45,7 +63,7 @@
         <h1>Your ANALysed Text - {{ purpose }}</h1>
 <p>
     <pre>
-        {{ analysed_text }}
+        <bold> {{ analysed_text }} </bold>
     </pre>
 </p>
 
