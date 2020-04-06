@@ -1,6 +1,4 @@
-# Project Title
-
-TextUtils - The Text Utility Website!
+# TextUtils - The Text Utility Website!
 
 ## Built With
 
@@ -15,7 +13,7 @@ Also to make it more attractive, i've used Bootstrap code snippets.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache-2.0 - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
